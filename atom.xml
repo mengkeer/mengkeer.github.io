@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>这个孩子从小记性不好,遇到什么事情都要记下来</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-12-26T14:45:34.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>lotus</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>科学上网神器-Shadowsocks</title>
+    <link href="http://yoursite.com/2016/12/26/2016-12-26/"/>
+    <id>http://yoursite.com/2016/12/26/2016-12-26/</id>
+    <published>2016-12-25T16:25:16.000Z</published>
+    <updated>2016-12-26T14:45:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近国内的网络形式越来越严峻，在日益高筑的围墙之下，掌握一门穿墙之术越来越成为需要。相对于 VPN 而已， Shadowsocks 更为轻量级，安装配置过程极其简单。而客户端也可以在windows、mac、iOS和android上轻松运行，被人们所深深喜爱。</p>
+<h2 id="Shadowsocks"><a href="#Shadowsocks" class="headerlink" title="Shadowsocks"></a>Shadowsocks</h2><h2 id="服务器安装"><a href="#服务器安装" class="headerlink" title="服务器安装"></a>服务器安装</h2><p><em>这里需要说明的是，绝大部分的命令执行都需要root权限</em></p>
+<h3 id="在-CentOS-7-下安装和使用-Shadowsocks"><a href="#在-CentOS-7-下安装和使用-Shadowsocks" class="headerlink" title="在 CentOS 7 下安装和使用 Shadowsocks"></a>在 CentOS 7 下安装和使用 Shadowsocks</h3><p>python-setuptools 与 pip 命令安装：<br><code>yum install python-setuptools &amp;&amp; easy_install pip</code><br>用 pip 方式安装 shadowsokcs:<br><code>pip install shadowsocks</code></p>
+<p>在 etc 下建立 shadowsocks 文件夹，并写入配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir -p /etc/shadowsocks</div><div class="line">vi /etc/shadowsocks/config.json</div></pre></td></tr></table></figure></p>
+<p>配置文件内容如下（相关参数可自己修改）：<br>单账户<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">     <span class="string">"server"</span>:<span class="string">"your_server_ip"</span>,</div><div class="line">     <span class="string">"server_port"</span>:<span class="number">8989</span>,</div><div class="line">     <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">     <span class="string">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">     <span class="string">"password"</span>:<span class="string">"mypassword"</span>,</div><div class="line">     <span class="string">"timeout"</span>:<span class="number">300</span>,</div><div class="line">     <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span>,</div><div class="line">     <span class="string">"fast_open"</span>: <span class="literal">false</span>,</div><div class="line">     <span class="string">"workers"</span>: <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>说明：服务器IP（建议外网IP），服务端口（建议自定义），本地监听IP，本地监听端口，密码（建议自定义），超时时间，加密算法（可更改为rc4-md5），关闭fast-open，工作进程数量为1。</p>
+<p>多账号（如需要）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"server"</span>:<span class="string">"your_server_ip"</span>,</div><div class="line">    <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">    <span class="string">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">    <span class="string">"port_password"</span>:&#123;</div><div class="line">         <span class="string">"8977"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8978"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8979"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8980"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8981"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8982"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8983"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8984"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8985"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8986"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8989"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8988"</span>:<span class="string">"zning.net.cn"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"timeout"</span>:<span class="number">300</span>,</div><div class="line">    <span class="string">"method"</span>:<span class="string">"rc4-md5"</span>,</div><div class="line">    <span class="string">"fast_open"</span>: <span class="literal">false</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>说明：服务器IP，服务端口（建议自定义），本地监听IP，本地监听端口，密码（建议自定义），超时时间，加密算法（可更改为rc4-md5），关闭fast-open。</p>
+<p>接下来我们设置Shadowsocks能够随系统启动。在CentOS 7中，已经将系统服务的命令修改为systemctl，这里我们就用此命令进行相关配置：</p>
+<p>建立shadowsocks-server.service文件：（建立后，在英文半角状态下输入i即可激活输入insert状态）<br><code>vim /etc/systemd/system/shadowsocks-server.service</code></p>
+<p>文件内容：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=Shadowsocks Server</div><div class="line">After=network.target</div><div class="line"></div><div class="line">[Service]</div><div class="line">Type=forking</div><div class="line">PIDFile=/run/shadowsocks/server.pid</div><div class="line">PermissionsStartOnly=<span class="literal">true</span></div><div class="line">ExecStartPre=/bin/mkdir -p /run/shadowsocks</div><div class="line">ExecStartPre=/bin/chown root:root /run/shadowsocks</div><div class="line">ExecStart=/usr/bin/ssserver --pid-file /var/run/shadowsocks/server.pid -c /etc/shadowsocks/config.json <span class="_">-d</span> start</div><div class="line">Restart=on-abort</div><div class="line">User=root</div><div class="line">Group=root</div><div class="line">UMask=0027</div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure></p>
+<p>之后按Esc退出insert模式，输入:wq保存并退出。<br>启动系统服务，并设置为激活状态（开机启动状态）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl start shadowsocks-server.service</div><div class="line">systemctl enable shadowsocks-server.service</div></pre></td></tr></table></figure></p>
+<p>设置防火墙（CentOS 7特性，如不设置，则无法连接上网）：<br>单用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8989/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure></p>
+<p>多账号：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8977/tcp</div><div class="line">firewall-cmd --permanent --add-port=8978/tcp</div><div class="line">firewall-cmd --permanent --add-port=8979/tcp</div><div class="line">firewall-cmd --permanent --add-port=8980/tcp</div><div class="line">firewall-cmd --permanent --add-port=8981/tcp</div><div class="line">firewall-cmd --permanent --add-port=8982/tcp</div><div class="line">firewall-cmd --permanent --add-port=8983/tcp</div><div class="line">firewall-cmd --permanent --add-port=8984/tcp</div><div class="line">firewall-cmd --permanent --add-port=8985/tcp</div><div class="line">firewall-cmd --permanent --add-port=8986/tcp</div><div class="line">firewall-cmd --permanent --add-port=8989/tcp</div><div class="line">firewall-cmd --permanent --add-port=8988/tcp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure></p>
+<p>然后就可以愉快的科学上网了~</p>
+<h3 id="在-Ubuntu-14-04-下安装和使用-Shadowsocks"><a href="#在-Ubuntu-14-04-下安装和使用-Shadowsocks" class="headerlink" title="在 Ubuntu 14.04 下安装和使用 Shadowsocks"></a>在 Ubuntu 14.04 下安装和使用 Shadowsocks</h3><p>安装Shadowsocks：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">apt-get update</div><div class="line">apt-get install python-gevent python-pip</div><div class="line">pip install shadowsocks</div><div class="line">apt-get install python-m2crypto</div></pre></td></tr></table></figure></p>
+<p>配置Shadowsocks：</p>
+<ol>
+<li><p>创建config.json配置文件：<br><code>vim /etc/shadowsocks.json</code></p>
+</li>
+<li><p>修改config.json（同上）<br>配置文件内容如下（相关参数可自己修改）：<br>单账户</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">     <span class="string">"server"</span>:<span class="string">"your_server_ip"</span>,</div><div class="line">     <span class="string">"server_port"</span>:<span class="number">8989</span>,</div><div class="line">     <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">     <span class="string">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">     <span class="string">"password"</span>:<span class="string">"mypassword"</span>,</div><div class="line">     <span class="string">"timeout"</span>:<span class="number">300</span>,</div><div class="line">     <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span>,</div><div class="line">     <span class="string">"fast_open"</span>: <span class="literal">false</span>,</div><div class="line">     <span class="string">"workers"</span>: <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>说明：服务器IP（建议外网IP），服务端口（建议自定义），本地监听IP，本地监听端口，密码（建议自定义），超时时间，加密算法（可更改为rc4-md5），关闭fast-open，工作进程数量为1。</p>
+<p>多账号（如需要）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"server"</span>:<span class="string">"your_server_ip"</span>,</div><div class="line">    <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">    <span class="string">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">    <span class="string">"port_password"</span>:&#123;</div><div class="line">         <span class="string">"8977"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8978"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8979"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8980"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8981"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8982"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8983"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8984"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8985"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8986"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8989"</span>:<span class="string">"zning.net.cn"</span>,</div><div class="line">         <span class="string">"8988"</span>:<span class="string">"zning.net.cn"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"timeout"</span>:<span class="number">300</span>,</div><div class="line">    <span class="string">"method"</span>:<span class="string">"rc4-md5"</span>,</div><div class="line">    <span class="string">"fast_open"</span>: <span class="literal">false</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>说明：服务器IP，服务端口（建议自定义），本地监听IP，本地监听端口，密码（建议自定义），超时时间，加密算法（可更改为rc4-md5），关闭fast-open。</p>
+<p>运行Shadowsocks（是不是觉得少了一步？并没有，Ubuntu14.04并不需要配置防火墙就能用哦~）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssserver -c /etc/shadowsocks.json -d start</div><div class="line">ssserver -c /etc/shadowsocks.json -d stop</div></pre></td></tr></table></figure></p>
+<p>然后就可以愉快的科学上网了~</p>
+<h4 id="注：配置的说明"><a href="#注：配置的说明" class="headerlink" title="注：配置的说明"></a>注：配置的说明</h4><table>
+<thead>
+<tr>
+<th>Name</th>
+<th style="text-align:center">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server</td>
+<td style="text-align:center">he address your server listens（服务器IP）</td>
+</tr>
+<tr>
+<td>local_address</td>
+<td style="text-align:center">the address your local listens（本地代理地址）</td>
+</tr>
+<tr>
+<td>local_port</td>
+<td style="text-align:center">local port（本地代理端口）</td>
+</tr>
+<tr>
+<td>port_password</td>
+<td style="text-align:center">password used for encryption(自己设定的服务器端口和密码)</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td style="text-align:center">in seconds（超时断开，以秒为单位））</td>
+</tr>
+<tr>
+<td>method</td>
+<td style="text-align:center">default: “aes-256-cfb”, see Encryption（加密方式））</td>
+</tr>
+<tr>
+<td>fast_open</td>
+<td style="text-align:center">use TCP_FASTOPEN, true / false（是否使用TCP）</td>
+</tr>
+<tr>
+<td>workers</td>
+<td style="text-align:center">number of workers, available on Unix/Linux（这个只在Unix和Linux下有用，可不设置）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="用户在客户端的配置"><a href="#用户在客户端的配置" class="headerlink" title="用户在客户端的配置"></a>用户在客户端的配置</h2><h3 id="Windows用户"><a href="#Windows用户" class="headerlink" title="Windows用户"></a>Windows用户</h3><ol>
+<li>Windows 用户请先下载客户端 <a href="https://github.com/shadowsocks/shadowsocks-windows/releases/download/3.3.3/Shadowsocks-3.3.3.zip" target="_blank" rel="external">Shadowsocks for Windows</a>，解压后运行 <strong>Shadowsocks.exe</strong><br>2.</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/3276231-2f716419a714db3a.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="捕获.PNG"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3276231-3559b95f729d74eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片1.png"></p>
+<h3 id="Linux用户"><a href="#Linux用户" class="headerlink" title="Linux用户"></a>Linux用户</h3><ol>
+<li>Linux 用户根据<a href="https://github.com/shadowsocks/shadowsocks-qt5/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97" target="_blank" rel="external">安装指南</a>自行安装。</li>
+</ol>
+<h3 id="Mac用户"><a href="#Mac用户" class="headerlink" title="Mac用户"></a>Mac用户</h3><ol>
+<li>Mac用户请先下载客户端 <a href="https://www.slotus.cc/ShadowsocksX-2.6.3.dmg" target="_blank" rel="external">Shadowsocks for Mac</a>，安装打开后如图所示：<br><img src="http://upload-images.jianshu.io/upload_images/3276231-13b2fec2447283e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20161015-0@2x.png"></li>
+<li>打开服务器设定：<br><img src="http://upload-images.jianshu.io/upload_images/3276231-00c8ee085ddde480.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20161015-2@2x.png"><br>如图：地址即服务器IP地址，端口即服务器端口 ，填好加密方式及密码后，备注可随便填</li>
+<li>打开Shadowsocks<br><img src="http://upload-images.jianshu.io/upload_images/3276231-4502d9b610d46510.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20161015-0@2x.png"><br>如图：选好你刚刚添加的服务器，再打开Shadowsocks即可，视情况选自动代理模式与全局模式（一般选自动代理即可）</li>
+<li>接下里就翻墙成功啦，看见女神好开森！<br><img src="http://upload-images.jianshu.io/upload_images/3276231-dd47cd97e44901fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20161016-0@2x.png"></li>
+</ol>
+<h3 id="iPhone-iPad-用户"><a href="#iPhone-iPad-用户" class="headerlink" title="iPhone/iPad 用户"></a>iPhone/iPad 用户</h3><ol>
+<li><p>在 App Store 里搜索软件 Wingy，如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3276231-b545f76fd9891ac2.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IMG_0826.PNG"></p>
+</li>
+<li><p>安装打开后，如图</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3276231-08c8bebb0fb95a06.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IMG_0827.PNG"></p>
+</li>
+</ol>
+<p>3.选择线路，新增线路。<br>  <img src="http://upload-images.jianshu.io/upload_images/3276231-25d9858c6095919b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20161016-0@2x.png"><br>要点击允许(⊙o⊙)哦<br><img src="http://upload-images.jianshu.io/upload_images/3276231-5216714f77e8f18c.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IMG_0830.PNG"></p>
+<p>4.返回主界面选好刚刚的设定的线路，再点连接就可以了（一般设定好线路再返回时就会自动链接上的）</p>
+<p><small>打开ins又能看见萌萌哒的女神了😍*</small></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3276231-51a79a85fa00246f.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IMG_0831.PNG"></p>
+<h3 id="Android-用户"><a href="#Android-用户" class="headerlink" title="Android 用户"></a>Android 用户</h3><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://shadowsocks.org/en/index.html" target="_blank" rel="external">https://shadowsocks.org/en/index.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近国内的网络形式越来越严峻，在日益高筑的围墙之下，掌握一门穿墙之术越来越成为需要。相对于 VPN 而已， Shadowsocks 更为轻量级，安装配置过程极其简单。而客户端也可以在windows、mac、iOS和android上轻松运行，被人们所深深喜爱。&lt;/p&gt;
+&lt;h2
+    
+    </summary>
+    
+      <category term="科普" scheme="http://yoursite.com/categories/%E7%A7%91%E6%99%AE/"/>
+    
+    
+      <category term="科普" scheme="http://yoursite.com/tags/%E7%A7%91%E6%99%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2016/12/25/hello-world/"/>
+    <id>http://yoursite.com/2016/12/25/hello-world/</id>
+    <published>2016-12-25T15:36:17.000Z</published>
+    <updated>2016-12-25T15:44:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
